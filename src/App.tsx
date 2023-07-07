@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import { Outlet } from 'react-router-dom';
+
+import { Header, Footer } from './common';
+
+import { Provider } from 'mobx-react';
+
+import todoStore from './store/todoStore';
+import apiStore from './store/apiStore'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider todoStore={todoStore} apiStore={apiStore}>
+      <div className="wrapper">
+        <Header/>
+        <div className="content" data-testid="content">
+          <Outlet/>
+        </div>
+        <Footer/>
+      </div>
+    </Provider>
   );
 }
 
